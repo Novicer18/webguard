@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><h6>Total Scans</h6><h3>{{ total_scans }}</h3></div></div></div>
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><h6>Completed</h6><h3>{{ completed_scans }}</h3></div></div></div>
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><h6>High Risk</h6><h3>{{ high_risk_scans }}</h3></div></div></div>
+</div>
+<div class="card mb-4 bg-dark border-secondary"><div class="card-body"><h5>Run New Scan</h5>
+<form method="post" action="{% url 'scanner:submit' %}" id="scan-form">{% csrf_token %}
+<div class="row g-2 align-items-end"><div class="col-md-9">{{ scan_form.target_url }}</div><div class="col-md-3"><button class="btn btn-primary w-100" type="submit">Scan Now</button></div></div>
+<div id="scan-loading" class="mt-2 d-none"><span class="spinner-border spinner-border-sm"></span> Scan in progress...</div>
+</form></div></div>
+<div class="card bg-dark border-secondary"><div class="card-body"><h5>Recent Scans</h5>
+<div class="table-responsive"><table class="table table-dark table-hover align-middle"><thead><tr><th>Target</th><th>Status</th><th>Risk</th><th>Score</th><th>Created</th><th></th></tr></thead><tbody>
+{% for scan in scans %}<tr><td>{{ scan.normalized_url }}</td><td>{{ scan.get_status_display }}</td><td><span class="badge risk-{{ scan.risk_level }}">{{ scan.get_risk_level_display }}</span></td><td>{{ scan.security_score }}</td><td>{{ scan.created_at }}</td><td><a class="btn btn-sm btn-outline-info" href="{% url 'dashboard:scan-detail' scan.id %}">View</a></td></tr>{% empty %}<tr><td colspan="6" class="text-center text-secondary">No scans yet.</td></tr>{% endfor %}
+</tbody></table></div></div></div>
+{% endblock %}

@@ -1,0 +1,8 @@
+Your WebGuard scan has completed.
+
+Target: {{ scan.normalized_url }}
+Status: {{ scan.status }}
+Security Score: {{ scan.security_score }}
+Risk Level: {{ scan.risk_level }}
+
+Open dashboard for full report.

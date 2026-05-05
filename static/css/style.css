@@ -1,0 +1,6 @@
+body { background: #0f172a; color: #e2e8f0; }
+.stat-card { background: #111827; border: 1px solid #334155; }
+.risk-high { background: #dc2626; }
+.risk-medium { background: #d97706; }
+.risk-low { background: #16a34a; }
+.report-item { border: 1px solid #334155; background: #0b1220; }
