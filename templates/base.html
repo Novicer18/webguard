@@ -12,7 +12,6 @@
       <div class="container">
         <a class="navbar-brand fw-bold" href="/">WebGuard</a>
         <div class="ms-auto d-flex align-items-center gap-3">
-          <button class="btn btn-sm btn-outline-light" id="theme-toggle" type="button">Toggle Theme</button>
           {% if user.is_authenticated %}
             <span class="text-light small">{{ user.username }}</span>
             <form method="post" action="{% url 'accounts:logout' %}" class="m-0">
