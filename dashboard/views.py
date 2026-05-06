@@ -5,6 +5,10 @@ from scanner.forms import ScanSubmissionForm
 from scanner.models import Scan
 
 
+def about_page(request):
+    return render(request, 'dashboard/about.html')
+
+
 @login_required
 def dashboard_home(request):
     scans = Scan.objects.filter(user=request.user).order_by('-created_at')

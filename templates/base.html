@@ -8,28 +8,36 @@
     <link href="/static/css/style.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+    <div class="app-bg-glow app-bg-glow-one"></div>
+    <div class="app-bg-glow app-bg-glow-two"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark app-navbar">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="/">WebGuard</a>
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+          <span class="brand-shield">WG</span>
+          <span>WebGuard</span>
+        </a>
         <div class="ms-auto d-flex align-items-center gap-3">
+          <a class="nav-link-lite" href="{% url 'dashboard:about' %}">About</a>
           {% if user.is_authenticated %}
-            <span class="text-light small">{{ user.username }}</span>
+            <span class="text-light small">Signed in as {{ user.username }}</span>
             <form method="post" action="{% url 'accounts:logout' %}" class="m-0">
               {% csrf_token %}
-              <button class="btn btn-sm btn-outline-danger" type="submit">Logout</button>
+              <button class="btn btn-sm btn-outline-danger px-3" type="submit">Logout</button>
             </form>
+          {% else %}
+            <a class="btn btn-sm btn-outline-info px-3" href="{% url 'accounts:login' %}">Sign in</a>
           {% endif %}
         </div>
       </div>
     </nav>
 
-    <main class="container py-4">
+    <main class="container py-4 position-relative">
       {% if messages %}
         {% for message in messages %}
           <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
       {% endif %}
-      <div class="alert alert-warning small">Only scan websites you own or have permission to test.</div>
+      <div class="permission-banner mb-4">Only scan websites you own or have permission to test.</div>
       {% block content %}{% endblock %}
     </main>
 
